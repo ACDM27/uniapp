@@ -1,0 +1,86 @@
+<template>
+  <view class="home-container">
+    <!-- 顶部区域 -->
+    <view class="header">
+      <text class="title">学生成果收集</text>
+    </view>
+
+    <!-- 搜索框区域 -->
+    <view class="search-section">
+      <uni-search-bar 
+        v-model="searchText" 
+        placeholder="搜索..."
+        @confirm="search"
+      ></uni-search-bar>
+    </view>
+
+    <!-- 核心功能导航区 -->
+    <view class="nav-section">
+      <view class="nav-grid">
+        <view 
+          class="nav-item" 
+          v-for="(item, index) in navItems" 
+          :key="index"
+        >
+          <view class="nav-box">
+            <text class="nav-text">{{ item.title }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import { initVueI18n } from '@dcloudio/uni-i18n'
+import messages from '@dcloudio/uni-ui/lib/uni-search-bar/i18n/index.js'
+
+const { t } = initVueI18n(messages)
+
+export default {
+  data() {
+    return {
+      searchText: '',
+      navItems: [
+        { title: '智能问答' },
+        { title: '学生综测' },
+        { title: '竞赛类' },
+        { title: '科研类' }
+      ]
+    }
+  },
+  methods: {
+    search(e) {
+      console.log('搜索内容：', this.searchText)
+    }
+  }
+}
+</script>
+
+<style>
+.home-container {
+  padding: 20rpx;
+}
+
+.header {
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 32rpx;
+  color: #000000;
+  font-weight: bold; /* 可选：增加标题权重 */
+}
+
+.search-section {
+  margin-bottom: 30rpx;
+  padding: 0 20rpx;
+}
+
+.nav-section {
+  padding: 20rpx 0;
+}
+
+.nav-grid {
+  display: flex;
+  flex-wrap: wrap; /* 允许换行（响应式备用）

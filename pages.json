@@ -1,0 +1,57 @@
+{
+  "pages": [
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "首页",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/honors/honors",
+      "style": {
+        "navigationBarTitleText": "荣誉",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/My/my",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationStyle": "custom"
+      }
+    }
+  ],
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "color": "#999999",
+    "selectedColor": "#409EFF",
+    "list": [
+      {
+        "pagePath": "pages/Home/index",
+        "text": "首页",
+        "iconPath": "static/img/icons/综测管理.png",
+        "selectedIconPath": "static/img/icons/综测管理.png"
+      },
+      {
+        "pagePath": "pages/Honors/honors",
+        "text": "荣誉",
+        "iconPath": "static/img/icons/奖学金.png",
+        "selectedIconPath": "static/img/icons/奖学金.png"
+      },
+      {
+        "pagePath": "pages/My/my",
+        "text": "我的",
+        "iconPath": "static/img/icons/个人信息.png",
+        "selectedIconPath": "static/img/icons/个人信息.png"
+	  }
+    ]
+  },
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+    }
+  }
+}

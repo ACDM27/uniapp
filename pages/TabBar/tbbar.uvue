@@ -1,0 +1,178 @@
+<template>
+  <view class="tab-bar">
+    <view 
+      class="tab-item" 
+      :class="{ active: currentRoute.includes('Home/index') }" 
+      @click="switchTab('/pages/Home/index')"
+    >
+      <view class="icon-wrapper">
+        <uv-icon name="home"></uv-icon>
+      </view>
+      <text class="text" :style="{ color: currentRoute.includes('Home/index') ? '#409EFF' : '#999' }">首页</text>
+    </view>
+    <view 
+      class="tab-item honor-tab" 
+      :class="{ active: currentRoute.includes('Honors/honors') }" 
+      @click="switchTab('/pages/Honors/honors')"
+    >
+      <view class="icon-wrapper">
+        <image src="/static/img/icons/奖学金.png" class="tab-icon"></image>
+      </view>
+      <text class="text" :style="{ color: currentRoute.includes('Honors/honors') ? '#FFA000' : '#999' }">荣誉</text>
+    </view>
+    <view 
+      class="tab-item" 
+      :class="{ active: currentRoute.includes('My/my') }" 
+      @click="switchTab('/pages/My/my')"
+    >
+      <view class="icon-wrapper">
+        <image src="/static/img/icons/个人信息.png" class="tab-icon"></image>
+      </view>
+      <text class="text" :style="{ color: currentRoute.includes('My/my') ? '#409EFF' : '#999' }">我的</text>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      currentRoute: ''
+    }
+  },
+  created() {
+    this.updateCurrentRoute()
+    // 监听页面显示
+    uni.$on('tabChange', (route) => {
+      this.currentRoute = route
+    })
+  },
+  beforeDestroy() {
+    // 移除监听
+    uni.$off('tabChange')
+  },
+  methods: {
+    updateCurrentRoute() {
+      const pages = getCurrentPages()
+      if (pages.length) {
+        const currentPage = pages[pages.length - 1]
+        this.currentRoute = currentPage.route || currentPage.__route__ || ''
+      }
+    },
+    switchTab(path) {
+      const pages = getCurrentPages()
+      const currentPath = pages.length ? '/' + (pages[pages.length - 1].route || pages[pages.length - 1].__route__) : ''
+      
+      if (currentPath === path) return
+      
+      uni.switchTab({
+        url: path,
+        success: () => {
+          this.currentRoute = path.slice(1)
+          // 触发全局事件
+          uni.$emit('tabChange', path.slice(1))
+        },
+        fail: (err) => {
+          console.error('导航失败:', err)
+          uni.showToast({
+            title: '页面跳转失败',
+            icon: 'none'
+          })
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style scoped>
+.tab-bar {
+  height: 100rpx;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -4rpx 15rpx rgba(0, 0, 0, 0.06);
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+  padding: 0 20rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 8rpx 0;
+}
+
+.tab-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 48rpx;
+  height: 6rpx;
+  background-color: #409EFF;
+  border-radius: 3rpx;
+  transition: transform 0.3s ease;
+}
+
+.tab-item.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.tab-item.active {
+  color: #64B5F6;
+}
+
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4rpx;
+  position: relative;
+  transition: transform 0.3s ease;
+  height: 52rpx;
+}
+
+.text {
+  font-size: 24rpx;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: #999;
+}
+
+.tab-item.active .text {
+  font-weight: 600;
+  color: #64B5F6;
+}
+
+.honor-tab.active .text {
+  color: #FFA000;
+}
+
+.honor-tab.active::after {
+  background-color: #FFA000;
+}
+
+.tab-item.active .icon-wrapper {
+  transform: scale(1.1);
+}
+
+.tab-icon {
+  width: 44rpx;
+  height: 44rpx;
+}
+</style> 

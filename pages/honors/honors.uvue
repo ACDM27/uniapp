@@ -1,0 +1,248 @@
+<template>
+	<view class="container">
+		<!-- 顶部背景 -->
+		<view class="header-bg"></view>
+		
+		<!-- 顶部标题 -->
+		<view class="header">
+			<view class="title-divider">
+				<view class="divider-line"></view>
+				<text class="sub-title">学生成果荣誉墙</text>
+				<view class="divider-line"></view>
+			</view>
+		</view>
+		
+		<!-- 主体内容 -->
+		<view class="content">
+			<view class="honor-card" @click="navigateToDetail('certificate')">
+				<view class="card-icon" style="background: rgba(64, 158, 255, 0.1)">
+					<uni-icons type="file" size="30" color="#409EFF"></uni-icons>
+				</view>
+				<view class="card-content">
+					<text class="card-title">证书</text>
+					<view class="card-items">
+						<text class="item-text">1、普通话水平考试二甲证书</text>
+						<text class="item-text">2、全国计算机二级证书</text>
+					</view>
+				</view>
+			</view>
+
+			<view class="honor-card" @click="navigateToDetail('research')">
+				<view class="card-icon" style="background: rgba(103, 194, 58, 0.1)">
+					<uni-icons type="paperplane" size="30" color="#67C23A"></uni-icons>
+				</view>
+				<view class="card-content">
+					<text class="card-title">科研成果</text>
+					<view class="card-items">
+						<text class="item-text">1、挂警项目立项</text>
+						<text class="item-text">2、一篇科学类SCI论文</text>
+					</view>
+				</view>
+			</view>
+
+			<view class="honor-card" @click="navigateToDetail('grades')">
+				<view class="card-icon" style="background: rgba(230, 162, 60, 0.1)">
+					<uni-icons type="medal" size="30" color="#E6A23C"></uni-icons>
+				</view>
+				<view class="card-content">
+					<text class="card-title">成绩与排名</text>
+					<view class="card-items">
+						<text class="item-text">1、大一上绩点3.8，排名第一</text>
+						<text class="item-text">2、大一下绩点3.7，排名第三</text>
+					</view>
+				</view>
+			</view>
+
+			<view class="honor-card" @click="navigateToDetail('volunteer')">
+				<view class="card-icon" style="background: rgba(144, 147, 153, 0.1)">
+					<uni-icons type="flag" size="30" color="#909399"></uni-icons>
+				</view>
+				<view class="card-content">
+					<text class="card-title">志愿活动</text>
+					<view class="card-items">
+						<text class="item-text">1、2025年3月4日学雷锋活动</text>
+						<text class="item-text">2、2025年5月2日校园清扫活动</text>
+					</view>
+				</view>
+			</view>
+
+			<view class="honor-card" @click="navigateToDetail('awards')">
+				<view class="card-icon" style="background: rgba(245, 108, 108, 0.1)">
+					<uni-icons type="star" size="30" color="#F56C6C"></uni-icons>
+				</view>
+				<view class="card-content">
+					<text class="card-title">校内奖项</text>
+					<view class="card-items">
+						<text class="item-text">1、院级创新赛二等奖</text>
+						<text class="item-text">2、院级拔河大赛第二名</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		<!-- 底部分享按钮 -->
+		<view class="share-button" @click="shareHonors">
+			<text class="share-text">分享我的荣誉</text>
+		</view>
+	</view>
+</template>
+
+<script>
+export default {
+	data() {
+		return {
+		}
+	},
+	methods: {
+		navigateToDetail(type) {
+			uni.navigateTo({
+				url: `/pages/Honors/${type}/${type}`
+			})
+		},
+		shareHonors() {
+			uni.showShareMenu({
+				withShareTicket: true,
+				menus: ['shareAppMessage', 'shareTimeline']
+			})
+		}
+	}
+}
+</script>
+
+<style>
+.container {
+	min-height: 100vh;
+	background: linear-gradient(to bottom, #EEF5FF, #ffffff);
+	padding-bottom: 50px;
+	padding-top: var(--status-bar-height);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.header-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 300rpx;
+	background: linear-gradient(135deg, #409EFF, #1E88E5);
+	z-index: 0;
+}
+
+.header {
+	padding: 20rpx 30rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 100rpx;
+	position: relative;
+	z-index: 1;
+}
+
+.title-divider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+}
+
+.divider-line {
+	width: 180rpx;
+	height: 4rpx;
+	margin: 0 30rpx;
+	background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff);
+}
+
+.divider-line:last-child {
+	background: linear-gradient(to left, rgba(255, 255, 255, 0), #ffffff);
+}
+
+.sub-title {
+	font-size: 40rpx;
+	color: #ffffff;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.content {
+	width: 100%;
+	padding: 20rpx 0;
+	position: relative;
+	z-index: 1;
+	margin-top: 40rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 40rpx;
+}
+
+.honor-card {
+	width: 650rpx;
+	min-height: 160rpx;
+	background: #fff;
+	border-radius: 20rpx;
+	margin-bottom: 20rpx;
+	display: flex;
+	align-items: flex-start;
+	padding: 24rpx;
+	box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.card-icon {
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 16rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 20rpx;
+	background: #f5f7fa;
+}
+
+.card-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding-top: 4rpx;
+}
+
+.card-title {
+	font-size: 30rpx;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 12rpx;
+}
+
+.card-items {
+	display: flex;
+	flex-direction: column;
+	gap: 8rpx;
+}
+
+.item-text {
+	font-size: 26rpx;
+	color: #666;
+	line-height: 1.5;
+}
+
+.share-button {
+	width: 650rpx;
+	background: #409EFF;
+	padding: 20rpx 0;
+	border-radius: 50rpx;
+	box-shadow: 0 4rpx 15rpx rgba(64, 158, 255, 0.3);
+	z-index: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20rpx auto;
+}
+
+.share-text {
+	color: #fff;
+	font-size: 28rpx;
+	font-weight: 500;
+}
+</style>
